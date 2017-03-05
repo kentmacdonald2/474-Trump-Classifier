@@ -87,3 +87,13 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+*.xml
+
+*.iml
+
+*.csv
+
+*.txt
+
+.TrumpFile.txt.swp
