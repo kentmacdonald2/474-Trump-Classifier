@@ -88,16 +88,11 @@ ENV/
 # Rope project settings
 .ropeproject
 
-<<<<<<< Updated upstream
 *.xml
 
 *.iml
 
-*.csv
-
 *.txt
 
 .TrumpFile.txt.swp
-=======
 .bayesTextClassification.py.swp
->>>>>>> Stashed changes
