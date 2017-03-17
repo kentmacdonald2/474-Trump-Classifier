@@ -5,6 +5,7 @@
 
 import tweepy #https://github.com/tweepy/tweepy
 import csv
+import sys
 
 #Twitter API credentials
 consumer_key = 'EfqaL86DG4IB5S1dByhRe6IDM'
@@ -62,4 +63,8 @@ def get_all_tweets(screen_name):
 
 if __name__ == '__main__':
 	#pass in the username of the account you want to download
-	get_all_tweets("realDonaldTrump")
+	get_all_tweets("marcorubio")
+	get_all_tweets("JebBush")
+	get_all_tweets("SenJohnMcCain")
+	get_all_tweets("JoeBiden")
+	get_all_tweets("BobbyJindal")
