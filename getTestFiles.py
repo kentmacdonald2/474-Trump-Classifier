@@ -3,6 +3,7 @@
 
 import tweepy  # https://github.com/tweepy/tweepy
 import random
+import string
 
 # Twitter API credentials
 consumer_key = "91AHqTh4QNcWnu6PNHYMRorxs"
@@ -14,19 +15,6 @@ non_trump_tweets = []
 trump_tweets = []
 
 def get_all_tweets(screen_names, is_trump):
-    tweets = []
-    # Open file to write to
-    # if is_trump:
-    #     data = open("trumpdata.txt", "w+")
-    #     labels = open("trumplabels.txt", "w+")
-    #     tdata = open("trumpdatat.txt", "w+")
-    #     tlabels = open("trumplabelst.txt", "w+")
-    # else:
-    #     data = open("nottrumpdata.txt", "w+")
-    #     labels = open("nottrumplabels.txt", "w+")
-    #     tdata = open("nottrumpdatat.txt", "w+")
-    #     tlabels = open("nottrumplabelst.txt", "w+")
-
     for screen_name in screen_names:
         # Twitter only allows access to a users most recent 3240 tweets with this method
 
@@ -67,42 +55,26 @@ def get_all_tweets(screen_names, is_trump):
         tweets = []
         for tweet in outtweets:
             tweets.append(tweet[2].__str__()[2:-1])
+        punct = [",", ".", "\"", "!", "\'","(",")"]
         if is_trump:
             for tweet in outtweets:
-                trump_tweets.append(tweet[2].__str__()[2:-1])
+                current_tweet = tweet[2].__str__()[2:-1]
+                current_tweet = current_tweet.translate(string.punctuation)
+                current_tweet = current_tweet.lower()
+                for curr in punct:
+                    current_tweet = current_tweet.replace(curr, "")
+                trump_tweets.append(current_tweet)
         else:
             for tweet in outtweets:
-                non_trump_tweets.append(tweet[2].__str__()[2:-1])
-
-    train_count = 0
-    test_count = 0
-    # write the csv
-    # for tweet in tweets:
-    #     if train_count < 1000:
-    #         data.write(tweet +"\n")
-    #         if is_trump:
-    #             labels.write("1\n")
-    #         else:
-    #             labels.write("0\n")
-    #         tweets.remove(tweet)
-    #     else:
-    #         break
-    #     train_count += 1
-    # for tweet in tweets:
-    #     if test_count < 200:
-    #         tdata.write(tweet +"\n")
-    #         if is_trump:
-    #             tlabels.write("1\n")
-    #         else:
-    #             tlabels.write("0\n")
-    #         tweets.remove(tweet)
-    #     else:
-    #         break
-    #     test_count += 1
+                current_tweet = tweet[2].__str__()[2:-1]
+                current_tweet = current_tweet.translate(string.punctuation)
+                current_tweet = current_tweet.lower()
+                for curr in punct:
+                    current_tweet = current_tweet.replace(curr, "")
+                non_trump_tweets.append(current_tweet)
 
 
-
-def concat_files(filenames,outfilename):
+def concat_files(filenames, outfilename):
     with open(outfilename, 'w') as outfile:
         for fname in filenames:
             with open(fname) as infile:
@@ -118,7 +90,7 @@ def write_files():
 
     random.shuffle(non_trump_tweets)
     random.shuffle(trump_tweets)
-    for _ in range(20):
+    for _ in range(1000):
         train_data.write(trump_tweets[0] + "\n")
         trump_tweets.pop(0)
         train_labels.write("1\n")
@@ -127,7 +99,7 @@ def write_files():
         non_trump_tweets.pop(0)
         train_labels.write("0\n")
 
-    for _ in range(10):
+    for _ in range(100):
         test_data.write(trump_tweets[0] + "\n")
         trump_tweets.pop(0)
         test_labels.write("1\n")
@@ -140,10 +112,5 @@ def write_files():
 if __name__ == '__main__':
     # pass in the username of the account you want to download
     get_all_tweets(["realDonaldTrump"], True)
-    get_all_tweets(["BarackObama","kentmacdonald2"], False)
-
-    # concat_files(['trumpdata.txt','nottrumpdata.txt'], "traindata.txt")
-    # concat_files(['trumplabels.txt', 'nottrumplabels.txt'], "trainlabels.txt")
-    # concat_files(['trumpdatat.txt', 'nottrumpdatat.txt'], "testdata.txt")
-    # concat_files(['trumplabelst.txt','nottrumplabelst.txt'], "testlabels.txt")
+    get_all_tweets(["BarackObama", "HillaryClinton"], False)
     write_files()

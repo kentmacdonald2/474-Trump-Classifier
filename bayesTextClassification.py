@@ -4,6 +4,13 @@ training_document_list = []
 training_labels_list = []
 test_document_list = []
 test_labels_list = []
+top_trump_indicators = []
+top_not_trump_indicators = []
+
+class indicatorWord():
+    def __init__(self, score, word):
+        self.score = score
+        self.word = word
 
 
 def get_file_name(prompt):
@@ -163,7 +170,12 @@ def apply_multinomial_nb(classes, V, prior, condprob, d):
         score.append(math.log(prior[c_count]))
         t_count = 0
         for t in V:
+            if c == 0:
+                top_trump_indicators.append(indicatorWord(condprob[t_count][c_count], t))
+            if c == 1:
+                top_not_trump_indicators.append(indicatorWord(condprob[t_count][c_count], t))
             if t in W:
+                #print("Adding the probability of: \"" + t + "\" Which is:  "+ condprob[t_count][c_count].__str__()+" at: condprob["+t_count.__str__()+"]["+c_count.__str__()+"]")
                 score[c_count] += math.log(condprob[t_count][c_count])
             t_count += 1
         c_count += 1
@@ -181,15 +193,35 @@ if __name__ == '__main__':
     get_test_input()
     d_count = 0
     correct_guesses = 0
+
     print("-----------------------------   Predictive Results:   ----------------------------")
     for d in test_document_list:
         guess = apply_multinomial_nb(classes, V, prior, condprob, d)
         if int(guess) == int(test_labels_list[d_count]):
-            print(" \"" + d[:-1] + "\" = " + guess.__str__())
+            #print(" \"" + d[:-1] + "\" = " + guess.__str__())
             correct_guesses += 1
         else:
-            print(" \"" + d[:-1] + "\" = " + guess.__str__() + " X")
+            pass
+            #print(" \"" + d[:-1] + "\" = " + guess.__str__() + " X")
         d_count += 1
+
+
+    print("-----------------------------   Conditional Probability   -----------------------")
+    #print(condprob.__str__())
+    top_not_trump_indicators.sort(key=lambda x: x.score)
+    top_trump_indicators.sort(key=lambda x: x.score)
+
+    print("\n\t Top 10 Trump Indicators\n")
+    top_trump_indicators.__str__()
+    for index in range(10):
+        print("\t"+(index+1).__str__()+". "+top_trump_indicators[index].word +" -> " + top_trump_indicators[index].score.__str__())
+
+    print("\n\t Top 10 Non-Trump Indicators\n")
+    top_not_trump_indicators.__str__()
+    for index in range(10):
+        print("\t" + (index + 1).__str__() + ". " + top_not_trump_indicators[index].word + " -> " + top_not_trump_indicators[index].score.__str__())
+
+
     correct_percentage = (correct_guesses/test_labels_list.__len__())*100
     correct_percentage_string = correct_percentage.__str__()
     print("\n")
