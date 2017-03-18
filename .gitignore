@@ -92,14 +92,6 @@ ENV/
 
 *.iml
 
-*.csv
-
 *.txt
 
 .TrumpFile.txt.swp
-
-testdata.txt
-
-*.txt
-
-*.txt
