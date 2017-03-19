@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # encoding: utf-8
+# -*- coding: utf-8 -*-
 
 import tweepy  # https://github.com/tweepy/tweepy
 import random
 import string
+import re
 
 # Twitter API credentials
 consumer_key = "91AHqTh4QNcWnu6PNHYMRorxs"
@@ -16,6 +18,7 @@ trump_tweets = []
 
 def get_all_tweets(screen_names, is_trump):
     for screen_name in screen_names:
+        print("Getting Tweets from: \"@"+ screen_name + "\"")
         # Twitter only allows access to a users most recent 3240 tweets with this method
 
         # authorize twitter, initialize tweepy
@@ -37,7 +40,6 @@ def get_all_tweets(screen_names, is_trump):
 
         # keep grabbing tweets until there are no tweets left to grab
         while len(new_tweets) > 0:
-            print("getting tweets before %s" % oldest)
 
             # all subsiquent requests use the max_id param to prevent duplicates
             new_tweets = api.user_timeline(screen_name=screen_name, count=200, max_id=oldest)
@@ -48,14 +50,13 @@ def get_all_tweets(screen_names, is_trump):
             # update the id of the oldest tweet less one
             oldest = alltweets[-1].id - 1
 
-            print("...%s tweets downloaded so far" % (len(alltweets)))
 
         # transform the tweepy tweets into a 2D array that will populate the csv
         outtweets = [[tweet.id_str, tweet.created_at, tweet.text.encode("utf-8")] for tweet in alltweets]
         tweets = []
         for tweet in outtweets:
             tweets.append(tweet[2].__str__()[2:-1])
-        punct = [",", ".", "\"", "!", "\'","(",")"]
+        punct = [",", ".", "\"", "!", "\'","(",")",":"]
         if is_trump:
             for tweet in outtweets:
                 current_tweet = tweet[2].__str__()[2:-1]
@@ -63,6 +64,7 @@ def get_all_tweets(screen_names, is_trump):
                 current_tweet = current_tweet.lower()
                 for curr in punct:
                     current_tweet = current_tweet.replace(curr, "")
+                re.sub('(\\...)', ' ', current_tweet)
                 trump_tweets.append(current_tweet)
         else:
             for tweet in outtweets:
@@ -71,6 +73,7 @@ def get_all_tweets(screen_names, is_trump):
                 current_tweet = current_tweet.lower()
                 for curr in punct:
                     current_tweet = current_tweet.replace(curr, "")
+                re.sub('(\\...)', ' ', current_tweet)
                 non_trump_tweets.append(current_tweet)
 
 
@@ -90,6 +93,7 @@ def write_files():
 
     random.shuffle(non_trump_tweets)
     random.shuffle(trump_tweets)
+    print("Writing Training Files ")
     for _ in range(1000):
         train_data.write(trump_tweets[0] + "\n")
         trump_tweets.pop(0)
@@ -99,7 +103,8 @@ def write_files():
         non_trump_tweets.pop(0)
         train_labels.write("0\n")
 
-    for _ in range(100):
+    print("Writing Testing Files ")
+    for _ in range(1000):
         test_data.write(trump_tweets[0] + "\n")
         trump_tweets.pop(0)
         test_labels.write("1\n")
