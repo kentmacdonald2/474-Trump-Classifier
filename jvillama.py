@@ -1,18 +1,27 @@
-# toy code, not meaningful
 
-import tweepy
+categories = ['alt.atheism', 'soc.religion.christian',
+              'comp.graphics', 'sci.med']
 
-# create api instance
-consumer_key = 'EfqaL86DG4IB5S1dByhRe6IDM'
-consumer_secret = '30bNKdiL8XAJB9z3RLbETwUSCz5dDiVJ7pi8kGuKmqpQlILTZf'
-access_token = '3883647074-tMKNRUxnIusvnG59dEEdr3dtC00O6H5fJPJwJvG'
-access_token_secret = 'mfAW95YhLcBOsEGNOEoSDQoZ2DvVcZ3bu6jKpmWtlD7ok'
+from sklearn.datasets import fetch_20newsgroups
 
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
+twenty_train = fetch_20newsgroups(subset='train',
+    categories=categories, shuffle=True, random_state=42)
 
-api = tweepy.API(auth)
+from sklearn.feature_extraction.text import CountVectorizer
+count_vect = CountVectorizer()
+X_train_counts = count_vect.fit_transform(twenty_train.data)
+from sklearn.feature_extraction.text import TfidfTransformer
+tf_transformer = TfidfTransformer(use_idf=False).fit(X_train_counts)
+X_train_tf = tf_transformer.transform(X_train_counts)
+tfidf_transformer = TfidfTransformer()
+X_train_tfidf = tfidf_transformer.fit_transform(X_train_counts)
 
-public_tweets = api.home_timeline()
-for tweet in public_tweets:
-    print(tweet.text)
+from sklearn.naive_bayes import MultinomialNB
+clf = MultinomialNB().fit(X_train_tfidf, twenty_train.target)
+
+docs_new = ['differing channels priming neurotransmitters', 'OpenGL on the GPU is fast']
+X_new_counts = count_vect.transform(docs_new)
+X_new_tfidf = tfidf_transformer.transform(X_new_counts)
+predicted = clf.predict(X_new_tfidf)
+for doc, category in zip(docs_new, predicted):
+    print('%r => %s' % (doc, twenty_train.target_names[category]))
