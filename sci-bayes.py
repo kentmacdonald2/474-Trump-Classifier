@@ -1,6 +1,7 @@
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn import metrics
+from sklearn import svm
 
 training_document_list = []
 training_labels_list = []
@@ -60,18 +61,27 @@ if __name__ == '__main__':
     train_features = vectorizer.fit_transform(training_document_list)
     test_features = vectorizer.transform(test_document_list)
 
-    nb = MultinomialNB()
+
+    # Classifiers
+    multi_nb = MultinomialNB()
+    support_vec = svm.SVC()
+
 
     #Convert lables to a list of ints (They are currently strings)
     training_labels_list = list(map(int,training_labels_list))
     test_labels_list = list(map(int,test_labels_list))
 
-    nb.fit(X = train_features, y = training_labels_list)
+    multi_nb.fit(X = train_features, y = training_labels_list)
+    support_vec.fit(X = train_features, y = training_labels_list)
 
-    predictions = nb.predict(test_features)
+    nb_predictions = multi_nb.predict(test_features)
+    svm_predictions = support_vec.predict(test_features)
 
-    fpr, tpr, thresholds = metrics.roc_curve(test_labels_list, predictions, pos_label=1)
+    fpr, tpr, thresholds = metrics.roc_curve(test_labels_list, nb_predictions, pos_label=1)
 
-    print("Accuracy: " + str(metrics.accuracy_score(test_labels_list, predictions)))
-    print(metrics.confusion_matrix(test_labels_list, predictions))
+    print("Naive bayes Accuracy: " + str(metrics.accuracy_score(test_labels_list, nb_predictions)))
+    print(metrics.confusion_matrix(test_labels_list, nb_predictions))
     print("Multinomial naive bayes AUC: {0}".format(metrics.auc(fpr, tpr)))
+
+
+    print("SVM accuracy: " + str(metrics.accuracy_score(test_labels_list, nb_predictions)))
