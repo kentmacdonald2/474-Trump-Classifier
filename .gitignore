@@ -95,3 +95,5 @@ ENV/
 *.txt
 
 .TrumpFile.txt.swp
+
+sci-bayes-Wrong.py
