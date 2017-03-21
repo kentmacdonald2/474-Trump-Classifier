@@ -211,14 +211,14 @@ if __name__ == '__main__':
     top_not_trump_indicators.sort(key=lambda x: x.score)
     top_trump_indicators.sort(key=lambda x: x.score)
 
-    print("\n\t Top 10 Trump Indicators\n")
+    print("\n\t Top 30 Trump Indicators\n")
     top_trump_indicators.__str__()
-    for index in range(10):
+    for index in range(30):
         print("\t"+(index+1).__str__()+". "+top_trump_indicators[index].word +" -> " + top_trump_indicators[index].score.__str__())
 
-    print("\n\t Top 10 Non-Trump Indicators\n")
+    print("\n\t Top 30 Non-Trump Indicators\n")
     top_not_trump_indicators.__str__()
-    for index in range(10):
+    for index in range(30):
         print("\t" + (index + 1).__str__() + ". " + top_not_trump_indicators[index].word + " -> " + top_not_trump_indicators[index].score.__str__())
 
 

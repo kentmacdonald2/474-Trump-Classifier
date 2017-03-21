@@ -56,7 +56,7 @@ def get_all_tweets(screen_names, is_trump):
         tweets = []
         for tweet in outtweets:
             tweets.append(tweet[2].__str__()[2:-1])
-        punct = [",", ".", "\"", "!", "\'","(",")",":"]
+        punct = [",", ".", "\"", "!", "\'","(",")",":","-"]
         if is_trump:
             for tweet in outtweets:
                 current_tweet = tweet[2].__str__()[2:-1]
