@@ -1,44 +1,44 @@
 Test Results:
 ------------------------
 
-Trump vs. Obama:
+// Trump vs. Obama:
 
-Multinomial NB 1
-Multinomial NB 2
-Bernoulli NB
-SVM
-Decision Tree
-SGD
-
-------------------------
-
-Trump vs. a bunch:
-
-Multinomial NB 1
-Multinomial NB 2
-Bernoulli NB
-SVM
-Decision Tree
-SGD
+Multinomial NB 1        
+Bernoulli NB            0.985
+Multinomial NB 2        0.9805
+SVM                     0.568
+Decision Tree           0.958833333333
+SGD                     0.972833333333
 
 ------------------------
 
-Trump vs. his supporters:
+// Trump vs. politicians:
 
-Multinomial NB 1
-Multinomial NB 2
-Bernoulli NB
-SVM
-Decision Tree
-SGD
+Multinomial NB 1        
+Bernoulli NB            0.886666666667
+Multinomial NB 2        0.896
+SVM                     0.513166666667
+Decision Tree           0.846
+SGD                     0.877666666667
 
 ------------------------
 
-Trump vs. child?:
+Trump vs. 5 supporters:
 
-Multinomial NB 1
-Multinomial NB 2
-Bernoulli NB
-SVM
-Decision Tree
-SGD
+Multinomial NB 1        
+Bernoulli NB            0.855666666667
+Multinomial NB 2        0.865
+SVM                     0.514833333333
+Decision Tree           0.849333333333
+SGD                     0.868833333333
+
+------------------------
+
+Trump vs. realdonaldrumpf:
+
+Multinomial NB 1        
+Bernoulli NB            0.929333333333
+Multinomial NB 2        0.925833333333
+SVM                     0.719166666667
+Decision Tree           0.866
+SGD                     0.9015
