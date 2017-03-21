@@ -1,0 +1,44 @@
+Test Results:
+------------------------
+
+Trump vs. Obama:
+
+Multinomial NB 1
+Multinomial NB 2
+Bernoulli NB
+SVM
+Decision Tree
+SGD
+
+------------------------
+
+Trump vs. a bunch:
+
+Multinomial NB 1
+Multinomial NB 2
+Bernoulli NB
+SVM
+Decision Tree
+SGD
+
+------------------------
+
+Trump vs. his supporters:
+
+Multinomial NB 1
+Multinomial NB 2
+Bernoulli NB
+SVM
+Decision Tree
+SGD
+
+------------------------
+
+Trump vs. child?:
+
+Multinomial NB 1
+Multinomial NB 2
+Bernoulli NB
+SVM
+Decision Tree
+SGD
