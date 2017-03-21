@@ -128,5 +128,5 @@ def write_files():
 if __name__ == '__main__':
     # pass in the username of the account you want to download
     get_all_tweets(["realDonaldTrump"], True)
-    get_all_tweets(["BarackObama"], False)
+    get_all_tweets(["BarackObama", "HillaryClinton", "BernieSanders", "tedcruz", "Schwarzenegger", "marcorubio", "JebBush", "SenJohnMcCain", "JoeBiden", "BobbyJindal"], False)
     write_files()
