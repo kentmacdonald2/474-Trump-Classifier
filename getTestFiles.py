@@ -91,8 +91,19 @@ def write_files():
     test_data = open("testdata.txt", "w")
     test_labels = open("testlabels.txt", "w")
 
+    raw_data = open("data.txt", "w")
+    raw_labels = open("labels.txt", "w")
+
     random.shuffle(non_trump_tweets)
     random.shuffle(trump_tweets)
+
+    print("Writing Files for K-Folding")
+    for i in range(3000):
+        raw_data.write(trump_tweets[i] + "\n")
+        raw_labels.write("1\n")
+        raw_data.write(non_trump_tweets[i] + "\n" )
+        raw_labels.write("0\n")
+
     print("Writing Training Files ")
     for _ in range(1000):
         train_data.write(trump_tweets[0] + "\n")

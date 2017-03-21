@@ -2,6 +2,8 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn import metrics
 from sklearn import svm
+from sklearn import tree
+from sklearn.linear_model import SGDClassifier
 
 training_document_list = []
 training_labels_list = []
@@ -53,6 +55,7 @@ def get_test_input():
 def get_file_name(prompt):
     return input(prompt)
 
+
 if __name__ == '__main__':
     get_training_input()
     get_test_input()
@@ -61,27 +64,45 @@ if __name__ == '__main__':
     train_features = vectorizer.fit_transform(training_document_list)
     test_features = vectorizer.transform(test_document_list)
 
+    # Convert lables to a list of ints (They are currently strings)
+    training_labels_list = list(map(int, training_labels_list))
+    test_labels_list = list(map(int, test_labels_list))
 
     # Classifiers
     multi_nb = MultinomialNB()
     support_vec = svm.SVC()
+    tree_clf = tree.DecisionTreeClassifier()
+    stoch_gd = SGDClassifier(loss="hinge", penalty="l2")
 
-
-    #Convert lables to a list of ints (They are currently strings)
-    training_labels_list = list(map(int,training_labels_list))
-    test_labels_list = list(map(int,test_labels_list))
-
+    # Fit the classifiers
     multi_nb.fit(X = train_features, y = training_labels_list)
     support_vec.fit(X = train_features, y = training_labels_list)
+    tree_clf.fit(X = train_features, y = training_labels_list)
+    stoch_gd.fit(X= train_features, y = training_labels_list)
 
+    # Make predictions
     nb_predictions = multi_nb.predict(test_features)
     svm_predictions = support_vec.predict(test_features)
+    tree_predictions = tree_clf.predict(test_features)
+    stoch_predictions = stoch_gd.predict(test_features)
 
+
+
+    # Report accuracy
+    print("\n-------------------  Results  -------------------")
+    print("\tMultinomial Naive Bayes Accuracy: " + str(metrics.accuracy_score(test_labels_list, nb_predictions)))
     fpr, tpr, thresholds = metrics.roc_curve(test_labels_list, nb_predictions, pos_label=1)
-
-    print("Naive bayes Accuracy: " + str(metrics.accuracy_score(test_labels_list, nb_predictions)))
-    print(metrics.confusion_matrix(test_labels_list, nb_predictions))
-    print("Multinomial naive bayes AUC: {0}".format(metrics.auc(fpr, tpr)))
-
-
-    print("SVM accuracy: " + str(metrics.accuracy_score(test_labels_list, nb_predictions)))
+    print("\tMultinomial Naive Bayes AUC: {0}".format(metrics.auc(fpr, tpr)))
+    print("")
+    print("\tSVM Accuracy: " + str(metrics.accuracy_score(test_labels_list, svm_predictions)))
+    fpr, tpr, thresholds = metrics.roc_curve(test_labels_list, svm_predictions, pos_label=1)
+    print("\tSVM AUC: {0}".format(metrics.auc(fpr, tpr)))
+    print("")
+    print("\tDecision Tree Accuracy: " + str(metrics.accuracy_score(test_labels_list, tree_predictions)))
+    fpr, tpr, thresholds = metrics.roc_curve(test_labels_list, tree_predictions, pos_label=1)
+    print("\tDecision Tree AUC: {0}".format(metrics.auc(fpr, tpr)))
+    print("")
+    print("\tStochastic Gradient Descent Accuracy: " + str(metrics.accuracy_score(test_labels_list, stoch_predictions)))
+    fpr, tpr, thresholds = metrics.roc_curve(test_labels_list, stoch_predictions, pos_label=1)
+    print("\tStochastic Gradient Descent AUC: {0}".format(metrics.auc(fpr, tpr)))
+    print("-------------------------------------------------\n")
