@@ -7,6 +7,8 @@ import random
 import string
 import re
 
+non_trumps = 0
+
 # Twitter API credentials
 consumer_key = "91AHqTh4QNcWnu6PNHYMRorxs"
 consumer_secret = "N68gf9HDiOnhRILj4ncZTKOvdazUaDwkfF6xzp5A5hL6dqwDCS"
@@ -18,6 +20,7 @@ trump_tweets = []
 
 def get_all_tweets(screen_names, is_trump):
     for screen_name in screen_names:
+        current_user_tweets = []
         print("Getting Tweets from: \"@"+ screen_name + "\"")
         # Twitter only allows access to a users most recent 3240 tweets with this method
 
@@ -74,7 +77,11 @@ def get_all_tweets(screen_names, is_trump):
                 for curr in punct:
                     current_tweet = current_tweet.replace(curr, "")
                 re.sub('(\\...)', ' ', current_tweet)
-                non_trump_tweets.append(current_tweet)
+                current_user_tweets.append(current_tweet)
+        print("Adding a non-trump user")
+        # print(current_user_tweets.__str__())
+        if is_trump == False:
+            non_trump_tweets.append(current_user_tweets)
 
 
 def concat_files(filenames, outfilename):
@@ -98,11 +105,18 @@ def write_files():
     random.shuffle(trump_tweets)
 
     print("Writing Files for K-Folding")
+    loop_count = 0
     for i in range(3000):
         raw_data.write(trump_tweets[i] + "\n")
         raw_labels.write("1\n")
-        raw_data.write(non_trump_tweets[i] + "\n" )
-        raw_labels.write("0\n")
+        print("non_trump_tweets.len()" + non_trump_tweets.__len__().__str__())
+        for user in non_trump_tweets:
+            print("Loop Count: " + loop_count.__str__())
+            #print("User[0]: " + user[0].__str__())
+            raw_data.write(user[loop_count] + "\n" )
+            raw_labels.write("0\n")
+        loop_count += 1
+
 
     print("Writing Training Files ")
     for _ in range(1000):
@@ -110,9 +124,10 @@ def write_files():
         trump_tweets.pop(0)
         train_labels.write("1\n")
 
-        train_data.write(non_trump_tweets[0] + "\n")
-        non_trump_tweets.pop(0)
-        train_labels.write("0\n")
+        for user in non_trump_tweets:
+            train_data.write(user[0] + "\n")
+            user.pop(0)
+            train_labels.write("0\n")
 
     print("Writing Testing Files ")
     for _ in range(1000):
@@ -120,13 +135,17 @@ def write_files():
         trump_tweets.pop(0)
         test_labels.write("1\n")
 
-        test_data.write(non_trump_tweets[0] + "\n")
-        non_trump_tweets.pop(0)
-        test_labels.write("0\n")
+        for user in non_trump_tweets:
+            test_data.write(user[0] + "\n")
+            user.pop(0)
+            test_labels.write("0\n")
 
 
 if __name__ == '__main__':
     # pass in the username of the account you want to download
     get_all_tweets(["realDonaldTrump"], True)
-    get_all_tweets(["BarackObama", "HillaryClinton", "BernieSanders", "tedcruz", "Schwarzenegger", "marcorubio", "JebBush", "SenJohnMcCain", "JoeBiden", "BobbyJindal"], False)
+    to_fetch = ["BarackObama", "HillaryClinton"]
+    non_trumps = to_fetch.__len__()
+    print("non_trumps: " + non_trumps.__str__())
+    get_all_tweets(to_fetch, False)
     write_files()
