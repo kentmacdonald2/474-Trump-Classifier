@@ -105,7 +105,7 @@ def write_files():
 
     print("Writing Files for K-Folding")
     loop_count = 0
-    for i in range(3000):
+    for i in range(300):
         raw_data.write(trump_tweets[i] + "\n")
         raw_labels.write("1\n")
         user_count = 1
@@ -151,7 +151,7 @@ def write_files():
 if __name__ == '__main__':
     # pass in the username of the account you want to download
     get_all_tweets(["realDonaldTrump"], True)
-    to_fetch = ["BarackObama", "HillaryClinton", "BernieSanders", "tedcruz", "Schwarzenegger", "marcorubio", "JebBush", "SenJohnMcCain", "JoeBiden"]
+    to_fetch = ["BarackObama", "HillaryClinton", "BernieSanders", "tedcruz"]
     non_trumps = to_fetch.__len__()
     get_all_tweets(to_fetch, False)
     write_files()
