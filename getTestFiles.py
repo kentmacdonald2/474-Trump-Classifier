@@ -78,7 +78,6 @@ def get_all_tweets(screen_names, is_trump):
                     current_tweet = current_tweet.replace(curr, "")
                 re.sub('(\\...)', ' ', current_tweet)
                 current_user_tweets.append(current_tweet)
-        print("Adding a non-trump user")
         # print(current_user_tweets.__str__())
         if is_trump == False:
             non_trump_tweets.append(current_user_tweets)
@@ -109,12 +108,15 @@ def write_files():
     for i in range(3000):
         raw_data.write(trump_tweets[i] + "\n")
         raw_labels.write("1\n")
-        print("non_trump_tweets.len()" + non_trump_tweets.__len__().__str__())
+        user_count = 1
         for user in non_trump_tweets:
-            print("Loop Count: " + loop_count.__str__())
             #print("User[0]: " + user[0].__str__())
-            raw_data.write(user[loop_count] + "\n" )
-            raw_labels.write("0\n")
+            try:
+                raw_data.write(user[loop_count] + "\n" )
+                raw_labels.write("0\n")
+            except IndexError:
+                print("Ran Out of Tweets for user: " + user_count.__str__() + " At: " + loop_count.__str__())
+            user_count += 1
         loop_count += 1
 
 
@@ -135,17 +137,21 @@ def write_files():
         trump_tweets.pop(0)
         test_labels.write("1\n")
 
+        user_count2 = 1
         for user in non_trump_tweets:
-            test_data.write(user[0] + "\n")
-            user.pop(0)
-            test_labels.write("0\n")
+            try:
+                test_data.write(user[0] + "\n")
+                user.pop(0)
+                test_labels.write("0\n")
+            except IndexError:
+                print("Ran Out of tweets for user: " + user_count2.__str__())
+            user_count2 += 1
 
 
 if __name__ == '__main__':
     # pass in the username of the account you want to download
     get_all_tweets(["realDonaldTrump"], True)
-    to_fetch = ["BarackObama", "HillaryClinton"]
+    to_fetch = ["BarackObama", "HillaryClinton", "BernieSanders", "tedcruz", "Schwarzenegger", "marcorubio", "JebBush", "SenJohnMcCain", "JoeBiden"]
     non_trumps = to_fetch.__len__()
-    print("non_trumps: " + non_trumps.__str__())
     get_all_tweets(to_fetch, False)
     write_files()
