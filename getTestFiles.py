@@ -97,8 +97,12 @@ def write_files():
     test_data = open("testdata.txt", "w")
     test_labels = open("testlabels.txt", "w")
 
-    raw_data = open("data.txt", "w")
-    raw_labels = open("labels.txt", "w")
+    raw_data = open("TrueData.txt", "w")
+    raw_labels = open("TrueLabels.txt", "w")
+
+    raw_data_replacement = open("ReplacementData.txt", "w")
+    raw_labels_replacement = open("ReplacementLabels.txt", "w")
+
 
     random.shuffle(non_trump_tweets)
     random.shuffle(trump_tweets)
@@ -114,6 +118,20 @@ def write_files():
             try:
                 raw_data.write(user[loop_count] + "\n" )
                 raw_labels.write("0\n")
+            except IndexError:
+                print("Ran Out of Tweets for user: " + user_count.__str__() + " At: " + loop_count.__str__())
+            user_count += 1
+        loop_count += 1
+
+    for i in range(300):
+        user_count = 1
+        for user in non_trump_tweets:
+            raw_data_replacement.write(trump_tweets[i] + "\n")
+            raw_labels_replacement.write("1\n")
+            #print("User[0]: " + user[0].__str__())
+            try:
+                raw_data_replacement.write(user[loop_count] + "\n" )
+                raw_labels_replacement.write("0\n")
             except IndexError:
                 print("Ran Out of Tweets for user: " + user_count.__str__() + " At: " + loop_count.__str__())
             user_count += 1
