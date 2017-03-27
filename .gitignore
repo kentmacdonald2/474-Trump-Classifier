@@ -97,3 +97,5 @@ ENV/
 .TrumpFile.txt.swp
 
 sci-bayes-Wrong.py
+
+~$results_sheet.xlsx
