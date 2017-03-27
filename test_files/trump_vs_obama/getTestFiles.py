@@ -56,7 +56,7 @@ def get_all_tweets(screen_names, is_trump):
         tweets = []
         for tweet in outtweets:
             tweets.append(tweet[2].__str__()[2:-1])
-        punct = [",", ".", "\"", "!", "\'","(",")",":"]
+        punct = [",", ".", "\"", "!", "\'","(",")",":","-"]
         if is_trump:
             for tweet in outtweets:
                 current_tweet = tweet[2].__str__()[2:-1]
@@ -128,7 +128,5 @@ def write_files():
 if __name__ == '__main__':
     # pass in the username of the account you want to download
     get_all_tweets(["realDonaldTrump"], True)
-    get_all_tweets(["BarackObama", "HillaryClinton", "BernieSanders",
-                    "tedcruz", "Schwarzenegger", "marcorubio", "JebBush",
-                    "SenJohnMcCain", "JoeBiden", "BobbyJindal"], False)
+    get_all_tweets(["BarackObama"], False)
     write_files()

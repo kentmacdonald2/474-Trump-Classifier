@@ -1,7 +1,7 @@
 Test Results:
 ------------------------
 
-// Trump vs. Obama:
+Trump vs. Obama:
 
 Multinomial NB 1        
 Bernoulli NB            0.985
@@ -12,7 +12,7 @@ SGD                     0.972833333333
 
 ------------------------
 
-// Trump vs. politicians:
+Trump vs. politicians:
 
 Multinomial NB 1        
 Bernoulli NB            0.886666666667
@@ -23,14 +23,14 @@ SGD                     0.877666666667
 
 ------------------------
 
-Trump vs. 5 supporters:
+Trump vs. 10 supporters:
 
 Multinomial NB 1        
-Bernoulli NB            0.855666666667
-Multinomial NB 2        0.865
-SVM                     0.514833333333
-Decision Tree           0.849333333333
-SGD                     0.868833333333
+Bernoulli NB            0.837666666667
+Multinomial NB 2        0.845166666667
+SVM                     0.5105
+Decision Tree           0.827833333333
+SGD                     0.842166666667
 
 ------------------------
 
