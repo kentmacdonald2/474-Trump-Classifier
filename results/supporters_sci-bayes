@@ -1,0 +1,63 @@
+Please enter the training data file name: Read successful
+Please enter the training labels file name: Read successful
+	Evaluating Fold #1
+	Evaluating Fold #2
+	Evaluating Fold #3
+	Evaluating Fold #4
+	Evaluating Fold #5
+	Evaluating Fold #6
+	Evaluating Fold #7
+	Evaluating Fold #8
+	Evaluating Fold #9
+	Evaluating Fold #10
+---------------------  Results  ---------------------
+	Bernoulli Naive Bayes Accuracy: 0.8365
+	Bernoulli Naive Bayes AUC: 0.8365
+             precision    recall  f1-score   support
+
+          0       0.89      0.77      0.82      3000
+          1       0.79      0.91      0.85      3000
+
+avg / total       0.84      0.84      0.84      6000
+
+
+	Multinomial Naive Bayes Accuracy: 0.842333333333
+	Multinomial Naive Bayes AUC: 0.842333333333
+             precision    recall  f1-score   support
+
+          0       0.89      0.78      0.83      3000
+          1       0.80      0.90      0.85      3000
+
+avg / total       0.85      0.84      0.84      6000
+
+
+	SVM Accuracy: 0.5135
+	SVM AUC: 0.5135
+             precision    recall  f1-score   support
+
+          0       0.94      0.03      0.06      3000
+          1       0.51      1.00      0.67      3000
+
+avg / total       0.72      0.51      0.36      6000
+
+
+	Decision Tree Accuracy: 0.826833333333
+	Decision Tree AUC: 0.826833333333
+             precision    recall  f1-score   support
+
+          0       0.83      0.82      0.83      3000
+          1       0.82      0.84      0.83      3000
+
+avg / total       0.83      0.83      0.83      6000
+
+
+	Stochastic Gradient Descent Accuracy: 0.837333333333
+	Stochastic Gradient Descent AUC: 0.837333333333
+             precision    recall  f1-score   support
+
+          0       0.83      0.85      0.84      3000
+          1       0.85      0.82      0.84      3000
+
+avg / total       0.84      0.84      0.84      6000
+
+
