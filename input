@@ -1,2 +1,7 @@
-test_files/trump_supporters/data.txt
-test_files/trump_supporters/labels.txt
+test_files/trump_vs_supporters/traindata.txt
+test_files/trump_vs_supporters/trainlabels.txt
+test_files/trump_vs_supporters/testdata.txt
+test_files/trump_vs_supporters/testlabels.txt
+
+test_files/trump_vs_supporters/data.txt
+test_files/trump_vs_supporters/labels.txt
