@@ -137,7 +137,6 @@ def write_files():
             user_count += 1
         loop_count += 1
 
-
     print("Writing Training Files ")
     for _ in range(1000):
         train_data.write(trump_tweets[0] + "\n")
@@ -169,7 +168,7 @@ def write_files():
 if __name__ == '__main__':
     # pass in the username of the account you want to download
     get_all_tweets(["realDonaldTrump"], True)
-    to_fetch = ["BarackObama", "HillaryClinton", "BernieSanders", "tedcruz"]
+    to_fetch = ["BarackObama", "HillaryClinton", "BernieSanders", "tedcruz", "Schwarzenegger", "marcorubio", "JebBush", "SenJohnMcCain", "JoeBiden", "BobbyJindal"]
     non_trumps = to_fetch.__len__()
     get_all_tweets(to_fetch, False)
     write_files()
