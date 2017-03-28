@@ -131,49 +131,6 @@ if __name__ == '__main__':
         # Report accuracy
         print("\tEvaluating Fold #"+ count.__str__())
         count += 1
-        #
-        # accuracy_measure = metrics.accuracy_score(y_test, bern_predictions)
-        # print("\tBernoulli Naive Bayes Accuracy: " + str(accuracy_measure))
-        # bern_bayes_auc.append(accuracy_measure)
-        # fpr, tpr, thresholds = metrics.roc_curve(y_test, bern_predictions, pos_label=1)
-        # print("\tBernoulli Naive Bayes AUC: {0}".format(metrics.auc(fpr, tpr)))
-        # print("")
-        #
-        # accuracy_measure = metrics.accuracy_score(y_test, nb_predictions)
-        # print("\tMultinomial Naive Bayes Accuracy: " + str(accuracy_measure))
-        # bayes_auc.append(accuracy_measure)
-        # fpr, tpr, thresholds = metrics.roc_curve(y_test, nb_predictions, pos_label=1)
-        # print("\tMultinomial Naive Bayes AUC: {0}".format(metrics.auc(fpr, tpr)))
-        # print("")
-        #
-        # accuracy_measure = metrics.accuracy_score(y_test, svm_predictions)
-        # print("\tSVM Accuracy: " + str(accuracy_measure))
-        # svm_auc.append(accuracy_measure)
-        # fpr, tpr, thresholds = metrics.roc_curve(y_test, svm_predictions, pos_label=1)
-        # print("\tSVM AUC: {0}".format(metrics.auc(fpr, tpr)))
-        # print("")
-        #
-        # accuracy_measure = metrics.accuracy_score(y_test, tree_predictions)
-        # print("\tDecision Tree Accuracy: " + str(accuracy_measure))
-        # tree_auc.append(accuracy_measure)
-        # fpr, tpr, thresholds = metrics.roc_curve(y_test, tree_predictions, pos_label=1)
-        # print("\tDecision Tree AUC: {0}".format(metrics.auc(fpr, tpr)))
-        # print("")
-        #
-        # accuracy_measure = metrics.accuracy_score(y_test, stoch_predictions)
-        # print("\tStochastic Gradient Descent Accuracy: " + str(accuracy_measure))
-        # sgd_auc.append(accuracy_measure)
-        # fpr, tpr, thresholds = metrics.roc_curve(y_test, stoch_predictions, pos_label=1)
-        # print("\tStochastic Gradient Descent AUC: {0}".format(metrics.auc(fpr, tpr)))
-        # print("-------------------------------------------------\n")
-    #
-    # print("---------------------  K fold Results: ---------------------\n")
-    # print("\tBernoulli Naive Bayes Accuracy: " + np.mean(bern_bayes_auc).__str__())
-    # print("\tMulitnomial Naive Bayes Accuracy: " + np.mean(bayes_auc).__str__())
-    # print("\tSVM Accuracy: " + np.mean(svm_auc).__str__())
-    # print("\tDecision Tree Accuracy: " + np.mean(tree_auc).__str__())
-    # print("\tSGD Accuracy: " + np.mean(sgd_auc).__str__())
-    # print("\n------------------------------------------------------------\n")
 
 
     print("---------------------  Results  ---------------------")
