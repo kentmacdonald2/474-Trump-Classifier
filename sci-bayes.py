@@ -103,7 +103,7 @@ if __name__ == '__main__':
         # Classifiers
         bern_nb = BernoulliNB()
         multi_nb = MultinomialNB()
-        support_vec = svm.SVC()
+        support_vec = svm.SVC(kernel='linear')
         tree_clf = tree.DecisionTreeClassifier()
         stoch_gd = SGDClassifier(loss="hinge", penalty="l2")
 
