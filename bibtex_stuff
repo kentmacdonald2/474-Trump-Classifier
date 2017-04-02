@@ -37,3 +37,12 @@
   year={2004},
   publisher={ACM}
 }
+
+@inproceedings{zhao1998discriminant,
+  title={Discriminant analysis of principal components for face recognition},
+  author={Zhao, Wenyi and Chellappa, Rama and Krishnaswamy, Arvind},
+  booktitle={Automatic Face and Gesture Recognition, 1998. Proceedings. Third IEEE International Conference on},
+  pages={336--341},
+  year={1998},
+  organization={IEEE}
+}
